@@ -15,15 +15,15 @@ export class UserService {
     return this.userModel.create(createUserDto);
   }
 
-  findAll() {
+  getListUsers() {
     return this.userModel.find();
   }
 
-  findOne(id: string) {
+  getUserByID(id: string) {
     return this.userModel.findById(id);
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  updateUserByID(id: string, updateUserDto: UpdateUserDto) {
     return this.userModel.findByIdAndUpdate(
       id,
       {
@@ -34,7 +34,7 @@ export class UserService {
     );
   }
 
-  remove(id: string) {
+  removeUserByID(id: string) {
     return this.userModel.deleteOne({ _id: id });
   }
 }
