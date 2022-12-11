@@ -11,9 +11,9 @@ import { UserController } from './user.controller';
 import { AuthorizationModule } from '../authorization/authorization.module';
 
 @Module({
-  imports: [Schemas, forwardRef(() => AuthorizationModule)],
-  controllers: [UserController],
-  providers: [UserService],
-  exports: [UserService],
+	imports: [Schemas, forwardRef(() => AuthorizationModule)],
+	controllers: [UserController],
+	providers: [UserService],
+	exports: [UserService],
 })
 export class UserModule {}

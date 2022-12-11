@@ -5,6 +5,6 @@ const fileName = `${process.env.NODE_ENV}.env`;
 const filePath = path.resolve(__dirname, '..', 'config', fileName);
 
 export default ConfigModule.forRoot({
-  envFilePath: [filePath],
-  isGlobal: true,
+	envFilePath: [filePath],
+	isGlobal: true,
 });

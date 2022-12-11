@@ -7,8 +7,8 @@ import { UserModule } from './user/user.module';
 import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
-  imports: [configuration, ...mongodb, UserModule, AuthorizationModule],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [configuration, ...mongodb, UserModule, AuthorizationModule],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

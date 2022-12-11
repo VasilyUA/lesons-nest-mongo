@@ -12,9 +12,9 @@ import { JwtStrategy } from './strateges/jwt.strategy';
 import { UserModule } from '../user/user.module';
 
 @Module({
-  controllers: [AuthorizationController],
-  providers: [AuthorizationService, LocalStrategy, JwtStrategy],
-  imports: [forwardRef(() => UserModule), PassportModule, JwtModule.register(jwtConfig)],
-  exports: [AuthorizationService, JwtModule],
+	controllers: [AuthorizationController],
+	providers: [AuthorizationService, LocalStrategy, JwtStrategy],
+	imports: [forwardRef(() => UserModule), PassportModule, JwtModule.register(jwtConfig)],
+	exports: [AuthorizationService, JwtModule],
 })
 export class AuthorizationModule {}
