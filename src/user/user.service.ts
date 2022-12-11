@@ -11,7 +11,7 @@ import { User, UserDocument } from '../db/index';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  createUser(createUserDto: CreateUserDto): Promise<User> {
     return this.userModel.create(createUserDto);
   }
 
@@ -21,6 +21,14 @@ export class UserService {
 
   getUserByID(id: string) {
     return this.userModel.findById(id);
+  }
+
+  getUserByEmail(email: string) {
+    return this.userModel.findOne({ email: email });
+  }
+
+  getUserByEmailWithPassword(email: string) {
+    return this.userModel.findOne({ email: email }).select('+password');
   }
 
   updateUserByID(id: string, updateUserDto: UpdateUserDto) {

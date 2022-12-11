@@ -9,8 +9,7 @@ jest.setTimeout(45000);
 
 describe('Main', () => {
   let app: INestApplication;
-  let request: any;
-  let server: any;
+  let request: supertest.SuperTest<supertest.Test>;
 
   beforeAll(async () => {
     jest.spyOn(console, 'log').mockImplementation(() => {}); // eslint-disable-line
@@ -20,8 +19,7 @@ describe('Main', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    server = app.getHttpServer();
-    request = supertest(server);
+    request = supertest(app.getHttpServer());
   });
 
   it("GET '/' Home page", () => request.get('/').set('Accept', 'application/json').expect(200).expect('Hello NestJS!'));
