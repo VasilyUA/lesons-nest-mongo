@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+
 import { hashPassword } from '../../helpers/bcrypt-password';
+import { USER_ROLES } from '../../constants';
+
+import { Permission } from './permission.schema';
 
 export type UserDocument = mongoose.HydratedDocument<User>;
 
@@ -20,6 +24,10 @@ export class User {
 	password: string;
 
 	@ApiProperty({ example: 'true', description: 'Заблокований или нет' })
+	@Prop({ type: [String], default: [USER_ROLES.USER], ref: 'Permission' })
+	roles: [Permission];
+
+	@ApiProperty({ example: 'true', description: 'Заблокований или нет' })
 	@Prop({ type: Boolean, default: false })
 	banned: boolean;
 
@@ -28,4 +36,15 @@ export class User {
 	banReason: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.set('toJSON', { virtuals: true });
+UserSchema.set('toObject', { virtuals: true });
+UserSchema.virtual('permission', {
+	ref: 'Permission',
+	localField: 'roles',
+	foreignField: 'roleName',
+	justOne: true,
+});
+
+export { UserSchema };

@@ -1,8 +1,11 @@
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { User, UserSchema, UserDocument } from './schemas/user.schema';
+import { Permission, PermissionSchema, PermissionDocument } from './schemas/permission.schema';
 
-export { User, UserDocument };
+export default MongooseModule.forFeature([
+	{ name: User.name, schema: UserSchema },
+	{ name: Permission.name, schema: PermissionSchema },
+]);
 
-const schemas = [{ name: User.name, schema: UserSchema }];
-export default MongooseModule.forFeature(schemas);
+export { User, UserDocument, Permission, PermissionDocument };

@@ -10,7 +10,7 @@ import { User, UserDocument } from '../../src/db/index';
 
 jest.setTimeout(45000);
 
-describe('Creat user as an admin', () => {
+describe('Create user as an admin', () => {
 	let app: INestApplication;
 	let request: supertest.SuperTest<supertest.Test>;
 	let UserModel: mongoose.Model<UserDocument>;
@@ -35,7 +35,7 @@ describe('Creat user as an admin', () => {
 		UserModel = moduleFixture.get<mongoose.Model<UserDocument>>(getModelToken(User.name));
 	});
 
-	it("POST '/registration' Create user bedrequest", () => {
+	it("POST '/registration' Create user bed request", () => {
 		const mockUser = {};
 		return request
 			.post('/registration')
@@ -44,15 +44,15 @@ describe('Creat user as an admin', () => {
 			.expect(400)
 			.then(response => {
 				const resData = _.get(response, 'body', []);
-				const chekedData = ['email - Некоректний email, Повинно бути рядком, Введіть email, Має бути лише @gmail.com', 'password - Не менше 2 и не більше 5, Повинно бути рядком, Введіть пароль'];
+				const checkedData = ['email - Некоректний email, Повинно бути рядком, Введіть email, Має бути лише @gmail.com', 'password - Не менше 2 и не більше 5, Повинно бути рядком, Введіть пароль'];
 
 				resData.forEach((item, index) => {
-					expect(item).toBe(chekedData[index]);
+					expect(item).toBe(checkedData[index]);
 				});
 			});
 	});
 
-	it("POST '/registration' Create user success", async () => {
+	it("POST '/registration' Create user success", () => {
 		return request
 			.post('/registration')
 			.send(mockUser)
@@ -100,10 +100,10 @@ describe('Creat user as an admin', () => {
 			});
 	});
 
-	it("POST '/login' Login user incorect email", async () => {
+	it("POST '/login' Login user incorrect email", async () => {
 		return request
 			.post('/login')
-			.send({ ...mockUser, password: 'Поштаc' })
+			.send({ ...mockUser, password: 'Зараз' })
 			.set('Accept', 'application/json')
 			.expect(401)
 			.then(res => {

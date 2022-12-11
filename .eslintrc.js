@@ -28,7 +28,6 @@ module.exports = {
 		'no-extra-boolean-cast': 'off',
 		'no-unused-expressions': 0,
 		'class-methods-use-this': ['off'],
-		quotes: ['error', 'single'],
 		'max-params': ['warn', 6],
 		'linebreak-style': [0, 'error', 'windows'],
 		'no-multi-spaces': 'error',
@@ -36,7 +35,7 @@ module.exports = {
 		'space-in-parens': 'error',
 		'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
 		'prefer-const': 'error',
-		'arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
+		'arrow-parens': [2, 'never', { requireForBlockBody: true }],
 		'prettier/prettier': [
 			'warn',
 			{

@@ -3,7 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 // current module
 import { AuthorizationService } from './authorization.service';
-import { LocalAuthGuard } from './gaurds/local-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 import { ValidationPipe } from '../pipes/validation.pipe';
 
 // user module
