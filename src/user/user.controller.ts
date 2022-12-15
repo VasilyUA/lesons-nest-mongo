@@ -26,7 +26,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Створення користувача доступно тільки для Адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
-	@Roles('ADMIN')
+	@Roles('admin')
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@UsePipes(ValidationPipe)
 	@Post()
@@ -34,25 +34,41 @@ export class UserController {
 		return this.userService.createUser(createUserDto);
 	}
 
-	@ApiOperation({ summary: 'Отримати всіх користувачів доступно тільки для Адміна' })
+	@ApiOperation({ summary: 'Отримати всіх користувачів доступно тільки для адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: [User] })
-	@UseGuards(JwtAuthGuard)
+	@Roles('admin')
+	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get()
 	getListUsers() {
 		return this.userService.getListUsers();
 	}
 
+	@ApiOperation({ summary: 'Отримати користувача за ідентифікатором доступно тільки для адміна' })
+	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
+	@ApiResponse({ status: 200, type: User })
+	@Roles('admin')
+	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get(':id')
 	getUserByID(@Param('id') id: string) {
 		return this.userService.getUserByID(id);
 	}
 
+	@ApiOperation({ summary: 'Оновити користувача за ідентифікатором доступно тільки для адміна' })
+	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
+	@ApiResponse({ status: 200, type: User })
+	@Roles('admin')
+	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Put(':id')
 	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
 		return this.userService.updateUserByID(id, updateUserDto);
 	}
 
+	@ApiOperation({ summary: 'Видалити користувача за ідентифікатором доступно тільки для адміна' })
+	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
+	@ApiResponse({ status: 200, type: User })
+	@Roles('admin')
+	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Delete(':id')
 	remove(@Param('id') id: string) {
 		return this.userService.removeUserByID(id);

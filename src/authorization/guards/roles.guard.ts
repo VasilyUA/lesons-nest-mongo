@@ -11,11 +11,10 @@ export class RolesGuard implements CanActivate {
 		const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [context.getHandler(), context.getClass()]);
 
 		const req = context.switchToHttp().getRequest();
-		const user = req.user;
-		const roles = user.roles.map(role => role.value);
+		const roles = req.user.roles;
 
 		const checkAccessRole = requiredRoles && roles.some(role => requiredRoles.includes(role));
-		if (!checkAccessRole) throw new HttpException('Нет доступа', HttpStatus.FORBIDDEN);
+		if (!checkAccessRole) throw new HttpException('Немає доступу', HttpStatus.FORBIDDEN);
 
 		return checkAccessRole;
 	}

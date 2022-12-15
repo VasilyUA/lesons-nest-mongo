@@ -1,15 +1,22 @@
 import { INestApplication } from '@nestjs/common';
+import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as supertest from 'supertest';
 import * as _ from 'lodash';
+import * as mongoose from 'mongoose';
 
 import { AppModule } from '../../src/app.module';
+import { User, UserDocument } from '../../src/db/index';
+
+import { USER_ROLES } from './../../src/constants';
 
 jest.setTimeout(45000);
 
-describe('Creat user as an admin', () => {
+describe('Create user as an admin', () => {
 	let app: INestApplication;
 	let request: supertest.SuperTest<supertest.Test>;
+
+	let UserModel: mongoose.Model<UserDocument>;
 
 	const mockUser: object = { email: 'user@gmail.com', password: 'Пошта' };
 	const mockAdminUser: object = { email: 'admin@gmail.com', password: 'Пошта' };
@@ -23,6 +30,10 @@ describe('Creat user as an admin', () => {
 		app = moduleFixture.createNestApplication();
 		await app.init();
 		request = supertest(app.getHttpServer());
+
+		UserModel = moduleFixture.get<mongoose.Model<UserDocument>>(getModelToken(User.name));
+
+		await UserModel.create({ ...mockAdminUser, roles: [USER_ROLES.ADMIN] });
 	});
 
 	it("POST '/user' Unauthorized without token", async () => {
@@ -34,6 +45,23 @@ describe('Creat user as an admin', () => {
 		const token = _.get(loginResponse, 'body.access_token', '');
 
 		return request.post('/user').send(mockUser).set('Authorization', token).set('Accept', 'application/json').expect(401).expect({ statusCode: 401, message: 'Unauthorized' });
+	});
+
+	it("POST '/user' Creating a user", async () => {
+		const loginResponse = await request.post('/login').send(mockAdminUser).set('Accept', 'application/json');
+		const token = _.get(loginResponse, 'body.access_token', '');
+
+		return request
+			.post('/user')
+			.send(mockUser)
+			.set('Authorization', `Bearer ${token}`)
+			.set('Accept', 'application/json')
+			.expect(201)
+			.then(res => {
+				const body = _.get(res, 'body', {});
+
+				expect(body.email).toBe(mockUser['email']);
+			});
 	});
 
 	afterAll(async () => {
