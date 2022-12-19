@@ -35,7 +35,7 @@ module.exports = {
 		'space-in-parens': 'error',
 		'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
 		'prefer-const': 'error',
-		'arrow-parens': [2, 'never', { requireForBlockBody: true }],
+		'arrow-parens': [2, 'as-needed'],
 		'prettier/prettier': [
 			'warn',
 			{
@@ -45,10 +45,6 @@ module.exports = {
 				tabWidth: 2,
 				endOfLine: 'auto',
 				useTabs: true,
-				usePrettierrc: true,
-				fileInfoOptions: {
-					withNodeModules: true,
-				},
 				arrowParens: 'avoid',
 			},
 		],

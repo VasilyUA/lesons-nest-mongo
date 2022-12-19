@@ -4,10 +4,6 @@
 	"printWidth": 200,
 	"tabWidth": 2,
 	"useTabs": true,
-	"usePrettierrc": true,
-	"fileInfoOptions": {
-		"withNodeModules": true
-	},
 	"arrowParens": "avoid",
 	"endOfLine": "auto"
 }
