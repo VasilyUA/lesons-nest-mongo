@@ -87,7 +87,6 @@ const config: Config = {
 			tsconfig: {
 				module: 'ESNext',
 				target: 'ESNext',
-				// allowJs: true,
 			},
 			useESM: true,
 		},
