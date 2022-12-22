@@ -66,7 +66,7 @@ describe('Create user as an admin', () => {
 			});
 	});
 
-	it("POST '/registration' Create user success", async () => {
+	it("POST '/registration' Create user exist with email", async () => {
 		return request.post('/registration').send(mockUser).set('Accept', 'application/json').expect(400).expect({ statusCode: 400, message: 'Користувач з таким email існує' });
 	});
 
