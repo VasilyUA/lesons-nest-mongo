@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as supertest from 'supertest';
-import * as _ from 'lodash';
-import * as mongoose from 'mongoose';
+import { jest } from '@jest/globals';
+import supertest from 'supertest';
+import _ from 'lodash';
+import mongoose from 'mongoose';
 
 import { AppModule } from '../../src/app.module';
 import { User, UserDocument } from '../../src/db/index';
@@ -22,7 +23,7 @@ describe('Create user as an admin', () => {
 	const mockAdminUser: object = { email: 'admin@gmail.com', password: 'Пошта' };
 
 	beforeAll(async () => {
-		jest.spyOn(console, 'log').mockImplementation(() => {}); // eslint-disable-line
+		// jest.spyOn(console, 'log').mockImplementation(() => {}); // eslint-disable-line
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [AppModule],
 		}).compile();

@@ -5,6 +5,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = function (options, webpack) {
 	return {
 		...options,
+		output: {
+			...options.output,
+			clean: true,
+		},
 		experiments: {
 			...options.experiments,
 			topLevelAwait: true,

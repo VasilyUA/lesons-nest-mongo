@@ -6,6 +6,13 @@ import { mongodb } from './db/mongo';
 import { UserModule } from './user/user.module';
 import { AuthorizationModule } from './authorization/authorization.module';
 
+const a = new Promise(res => {
+	setTimeout(() => {
+		res('a');
+	}, 1000);
+});
+
+await a;
 @Module({
 	imports: [configuration, ...mongodb, UserModule, AuthorizationModule],
 	controllers: [AppController],

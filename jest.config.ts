@@ -1,17 +1,19 @@
-module.exports = {
+import type { Config } from 'jest';
+
+const config: Config = {
 	clearMocks: true,
 	// The directory where Jest should output its coverage files
 	coverageDirectory: '<rootDir>/coverage',
 	// An array of regexp pattern strings used to skip coverage collection
 	coveragePathIgnorePatterns: ['node_modules', 'validation.exception.ts', 'main.ts', 'jwt.seting.ts', 'mysql.ts'],
 	// An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-	modulePathIgnorePatterns: ['<rootDir>/lambda/'],
+	modulePathIgnorePatterns: ['<rootDir>/node_modules/'],
 	// Activates notifications for test results
 	notify: true,
 	// An enum that specifies notification mode. Requires { notify: true }
 	// notifyMode: "failure-change",
 	// A preset that is used as a base for Jest's configuration
-	// preset: '@shelf/jest-mongodb',
+	preset: 'ts-jest/presets/default-esm',
 	// The root directory that Jest should scan for tests and modules within
 	rootDir: './',
 	// A list of paths to directories that Jest should use to search for files in
@@ -44,7 +46,7 @@ module.exports = {
 	// collectCoverage: false,
 
 	// An array of glob patterns indicating a set of files for which coverage information should be collected
-	collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/node_modules/', '!<rootDir>/coverage/', '!<rootDir>/database/', '!<rootDir>/dist/', '!<rootDir>/test/'],
+	collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/node_modules/', '!<rootDir>/coverage/', '!<rootDir>/dist/', '!<rootDir>/test/'],
 
 	// A list of reporter names that Jest uses when writing coverage reports
 	// coverageReporters: [
@@ -57,10 +59,10 @@ module.exports = {
 	// An object that configures minimum threshold enforcement for coverage results
 	coverageThreshold: {
 		global: {
-			branches: 100,
-			functions: 100,
-			lines: 100,
-			statements: 100,
+			branches: 70,
+			functions: 70,
+			lines: 70,
+			statements: 70,
 		},
 	},
 
@@ -80,7 +82,15 @@ module.exports = {
 	// globalTeardown: undefined,
 
 	// A set of global variables that need to be available in all test environments
-	// globals: {},
+	globals: {
+		'ts-jest': {
+			tsconfig: {
+				module: 'ESNext',
+				target: 'ESNext',
+			},
+			useESM: true,
+		},
+	},
 
 	// An array of directory names to be searched recursively up from the requiring module's location
 	// moduleDirectories: [
@@ -150,12 +160,11 @@ module.exports = {
 	// A map from regular expressions to paths to transformers
 	transform: {
 		'^.+\\.(t|j)s$': 'ts-jest',
+		'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
 	},
 
 	// An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-	// transformIgnorePatterns: [
-	//   "\\\\node_modules\\\\"
-	// ],
+	transformIgnorePatterns: ['\\\\node_modules\\\\'],
 
 	// An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
 	// unmockedModulePathPatterns: undefined,
@@ -166,3 +175,5 @@ module.exports = {
 	// Whether to use watchman for file crawling
 	// watchman: true,
 };
+
+export default config;

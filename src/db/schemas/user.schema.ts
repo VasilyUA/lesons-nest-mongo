@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 import { hashPassword } from '../../helpers/bcrypt-password';
 import { USER_ROLES } from '../../constants';

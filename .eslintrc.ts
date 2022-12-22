@@ -1,4 +1,10 @@
-module.exports = {
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const eslintConfig = {
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		project: 'tsconfig.json',
@@ -8,8 +14,6 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint/eslint-plugin'],
 	extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
-	// add your custom rules prettier/prettier
-
 	root: true,
 	env: {
 		node: true,
@@ -50,3 +54,5 @@ module.exports = {
 		],
 	},
 };
+
+export default eslintConfig;

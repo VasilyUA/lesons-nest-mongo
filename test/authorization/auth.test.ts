@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
-import * as supertest from 'supertest';
-import * as _ from 'lodash';
-import * as mongoose from 'mongoose';
+import { jest } from '@jest/globals';
+import supertest from 'supertest';
+import _ from 'lodash';
+import mongoose from 'mongoose';
 
 import { AppModule } from '../../src/app.module';
 import { User, UserDocument } from '../../src/db/index';

@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === 'test') {
 		}),
 	);
 } else {
+	console.log('process.env.MONGO_URI', process.env.MONGO_URI);
 	mongodb.push(MongooseModule.forRoot(process.env.MONGO_URI));
 }
 

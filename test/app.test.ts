@@ -1,7 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as supertest from 'supertest';
-import * as _ from 'lodash';
+import { jest } from '@jest/globals';
+import supertest from 'supertest';
+import _ from 'lodash';
 
 import { AppModule } from '../src/app.module';
 

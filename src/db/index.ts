@@ -1,5 +1,5 @@
 import { MongooseModule } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 import { User, UserSchema, UserDocument } from './schemas/user.schema';
 import { Permission, PermissionSchema, PermissionDocument } from './schemas/permission.schema';
