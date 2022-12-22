@@ -87,7 +87,7 @@ const config: Config = {
 			tsconfig: {
 				module: 'ESNext',
 				target: 'ESNext',
-				allowJs: true,
+				// allowJs: true,
 			},
 			useESM: true,
 		},
@@ -160,8 +160,7 @@ const config: Config = {
 
 	// A map from regular expressions to paths to transformers
 	transform: {
-		'^.+\\.(t|j)s$': 'ts-jest',
-		'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
+		'^.+\\.(t)s$': 'ts-jest',
 	},
 
 	// An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

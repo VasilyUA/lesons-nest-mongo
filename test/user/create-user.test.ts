@@ -23,7 +23,7 @@ describe('Create user as an admin', () => {
 	const mockAdminUser: object = { email: 'admin@gmail.com', password: 'Пошта' };
 
 	beforeAll(async () => {
-		// jest.spyOn(console, 'log').mockImplementation(() => {}); // eslint-disable-line
+		jest.spyOn(console, 'log').mockImplementation(() => {}); // eslint-disable-line
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [AppModule],
 		}).compile();
