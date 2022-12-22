@@ -1,10 +1,4 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const eslintConfig = {
+module.exports = {
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		project: 'tsconfig.json',
@@ -18,8 +12,9 @@ const eslintConfig = {
 	env: {
 		node: true,
 		jest: true,
+		es6: true,
 	},
-	ignorePatterns: ['.eslintrc.js'],
+	// ignorePatterns: ['.eslintrc.js'],
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
@@ -54,5 +49,3 @@ const eslintConfig = {
 		],
 	},
 };
-
-export default eslintConfig;

@@ -1,9 +1,4 @@
 {
-	"ts-node": {
-		"moduleTypes": {
-			"jest.config.ts": "cjs"
-		}
-	},
 	"compilerOptions": {
 		"module": "es2022",
 		"declaration": true,
