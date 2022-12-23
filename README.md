@@ -43,3 +43,13 @@ $ npm run test:w
 # test coverage
 $ npm run test:c
 ```
+
+## jobs
+
+```bash
+# unit tests
+$ npm run jobs
+
+# watch tests
+$ npm run jobs:w
+```
