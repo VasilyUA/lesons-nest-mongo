@@ -28,7 +28,7 @@ $ npm start
 $ npm run start:w
 
 # production mode
-$ npm run start:prod
+$ npm run start:p
 ```
 
 ## Test
