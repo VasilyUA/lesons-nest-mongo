@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Request } from 'express';
 import { Model } from 'mongoose';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User, UserDocument } from '../db/index';
+
+import { UserFactory } from '../patterns/strategies/user';
 
 @Injectable()
 export class UserService {
@@ -15,7 +18,9 @@ export class UserService {
 		return this.userModel.create(createUserDto);
 	}
 
-	getListUsers() {
+	async getListUsers(req: Request) {
+		const strategy = await UserFactory(req);
+		console.log(strategy.getRequest()); // eslint-disable-line no-console
 		return this.userModel.find();
 	}
 

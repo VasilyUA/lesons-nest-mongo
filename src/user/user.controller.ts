@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, UsePipes, Request } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Request as RequestType } from 'express';
 
 // import db modules and schemas
 import { User } from '../db/index';
@@ -40,8 +41,8 @@ export class UserController {
 	@Roles('admin')
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get()
-	getListUsers() {
-		return this.userService.getListUsers();
+	getListUsers(@Request() req: RequestType) {
+		return this.userService.getListUsers(req);
 	}
 
 	@ApiOperation({ summary: 'Отримати користувача за ідентифікатором доступно тільки для адміна' })
