@@ -14,7 +14,7 @@ module.exports = function (options, webpack) {
 			...options.experiments,
 			topLevelAwait: true,
 		},
-		mode: process.env.NODE_ENV || 'development',
+		mode: process.env.NODE_ENV === 'prod' ? 'production' : 'development',
 		entry: ['webpack/hot/poll?100', options.entry],
 		externals: [
 			nodeExternals({

@@ -16,7 +16,7 @@ module.exports = {
 	},
 	ignoreWarnings: [/^(?!CriticalDependenciesWarning$)/],
 	devtool: false,
-	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+	mode: process.env.NODE_ENV === 'prod' ? 'production' : 'development',
 	target: 'node',
 	externalsPresets: { node: true },
 	resolve: {
