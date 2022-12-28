@@ -1,12 +1,14 @@
-class UserStrategy {
-	private req = {};
+import _ from 'lodash';
+import BaseStrategy from './base';
 
-	constructor(req) {
-		this.req = req;
+class UserStrategy extends BaseStrategy {
+	constructor(req, models) {
+		super(req, models);
 	}
 
-	public getRequest() {
-		return 'getRequest';
+	public async getUser() {
+		const user = _.get(this.req, 'user');
+		return user;
 	}
 }
 

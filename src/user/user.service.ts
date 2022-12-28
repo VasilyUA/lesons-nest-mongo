@@ -18,14 +18,20 @@ export class UserService {
 		return this.userModel.create(createUserDto);
 	}
 
-	async getListUsers(req: Request) {
-		const strategy = await UserFactory(req);
-		console.log(strategy.getRequest()); // eslint-disable-line no-console
+	getListUsers() {
 		return this.userModel.find();
 	}
 
-	getUserByID(id: string) {
+	async getUserByID(id) {
 		return this.userModel.findById(id);
+	}
+
+	async getUserUseId(req: Request) {
+		const models = {
+			userModel: this.userModel,
+		};
+		const strategy = await UserFactory(req, models);
+		return strategy.getUser();
 	}
 
 	getUserByEmail(email: string) {

@@ -14,16 +14,16 @@ describe('Tests strategies', () => {
 	});
 
 	it('Test include admin strategy', async () => {
-		const strategy = await UserFactory({ strategy: USER_ROLES.ADMIN });
+		const strategy = await UserFactory({ strategy: USER_ROLES.ADMIN }, {});
 		expect(strategy).toBeDefined();
-		expect(strategy.getRequest()).toBe('getRequest');
 	});
 
-	it('Test include user strategy', async () => {
+	it('Test include strategy failed', async () => {
 		try {
-			await UserFactory({ strategy: USER_ROLES.USER });
+			await UserFactory({ strategy: 'failed' }, {});
+			throw new Error('Test failed');
 		} catch (error) {
-			expect(error.message).toBe('Strategy not found for this user role user');
+			expect(error.message).toBe('Strategy not found for this user role failed');
 		}
 	});
 });

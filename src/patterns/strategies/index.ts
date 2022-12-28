@@ -14,14 +14,14 @@ export const accessStrategy = (roles: [string]): string => {
 	}
 };
 
-export const getStrategy = async (req, dirname) => {
+export const getStrategy = async (req, models, dirname) => {
 	const modulePath = req.strategy;
 	const extFile = parse(__filename).ext;
 	const filePatch = `${dirname}/${modulePath}${extFile}`;
 
 	if (modulePath && existsSync(filePatch)) {
 		const { Strategy } = await import(filePatch);
-		return new Strategy(req);
+		return new Strategy(req, models);
 	}
 
 	throw new Error(`Strategy not found for this user role ${req.strategy}`);

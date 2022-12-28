@@ -38,17 +38,21 @@ describe('Create user as an admin', () => {
 		await UserModel.create({ ...mockAdminUser, roles: [USER_ROLES.ADMIN] });
 	});
 
-	it("GET '/user/:id' get user", async () => {
+	it("GET '/user' update user", async () => {
 		const loginResponse = await request.post('/login').send(mockAdminUser).set('Accept', 'application/json');
 		const token = _.get(loginResponse, 'body.access_token', '');
+		const user = await UserModel.findOne({ email: mockUser['email'] });
+		const newEmail = mockUser['email'] + '1';
 
 		return request
-			.get('/user/')
+			.put(`/user/${user['_id']}`)
+			.send({ ...mockUser, email: newEmail })
 			.set('Authorization', `Bearer ${token}`)
 			.set('Accept', 'application/json')
 			.expect(200)
 			.then(res => {
 				const body = _.get(res, 'body');
+				expect(body['email']).toBe(newEmail);
 			});
 	});
 

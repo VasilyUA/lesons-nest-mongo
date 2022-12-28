@@ -43,8 +43,8 @@ export class UserController {
 	@Roles(USER_ROLES.ADMIN)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get()
-	getListUsers(@Request() req: RequestType) {
-		return this.userService.getListUsers(req);
+	getListUsers() {
+		return this.userService.getListUsers();
 	}
 
 	@ApiOperation({ summary: 'Отримати користувача за ідентифікатором доступно тільки для адміна' })
@@ -53,8 +53,8 @@ export class UserController {
 	@Roles(USER_ROLES.ADMIN, USER_ROLES.USER)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get(':id')
-	getUserByID(@Param('id') id: string) {
-		return this.userService.getUserByID(id);
+	getUserByID(@Request() req: RequestType) {
+		return this.userService.getUserUseId(req);
 	}
 
 	@ApiOperation({ summary: 'Оновити користувача за ідентифікатором доступно тільки для адміна' })
