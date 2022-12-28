@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "nest build --webpack --webpackPath webpack-hmr.config.js",
 		"start": "cross-env NODE_ENV=development npm run build",
-		"start:w": "cross-env NODE_ENV=development npm run build --watch",
+		"start:w": "cross-env NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
 		"start:d": "cross-env NODE_ENV=development npm run build --debug --watch",
 		"start:p": "cross-env NODE_ENV=prod npm run build && node dist/main",
 		"format:p": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

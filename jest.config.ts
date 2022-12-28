@@ -5,7 +5,7 @@ const config: Config = {
 	// The directory where Jest should output its coverage files
 	coverageDirectory: '<rootDir>/coverage',
 	// An array of regexp pattern strings used to skip coverage collection
-	coveragePathIgnorePatterns: ['node_modules', 'validation.exception.ts', 'main.ts', 'jwt.seting.ts', 'mysql.ts'],
+	coveragePathIgnorePatterns: ['node_modules', 'main.ts', 'jwt.seting.ts', 'mongo.ts'],
 	// An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
 	modulePathIgnorePatterns: ['<rootDir>/node_modules/'],
 	// Activates notifications for test results

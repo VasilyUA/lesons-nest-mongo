@@ -124,6 +124,18 @@ describe('Create user as an admin', () => {
 			});
 	});
 
+	it("POST '/login' Login user incorrect email", async () => {
+		await UserModel.deleteOne({ email: mockUser['email'] });
+		return request
+			.post('/login')
+			.send(mockUser)
+			.set('Accept', 'application/json')
+			.expect(401)
+			.then(res => {
+				expect(res.body.message).toBe('Некоректний email або пароль');
+			});
+	});
+
 	afterAll(async () => {
 		await app.close();
 	});

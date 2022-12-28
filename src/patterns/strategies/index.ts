@@ -1,12 +1,16 @@
 import { existsSync } from 'fs';
 import { parse } from 'path';
+import { USER_ROLES } from '../../constants';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
 
 export const accessStrategy = (roles: [string]): string => {
 	switch (true) {
-		case roles.includes('ADMIN'):
-			return 'admin';
+		case roles.includes(USER_ROLES.ADMIN):
+			return USER_ROLES.ADMIN;
 		default:
-			return 'user';
+			return USER_ROLES.USER;
 	}
 };
 
@@ -19,4 +23,6 @@ export const getStrategy = async (req, dirname) => {
 		const { Strategy } = await import(filePatch);
 		return new Strategy(req);
 	}
+
+	throw new Error(`Strategy not found for this user role ${req.strategy}`);
 };

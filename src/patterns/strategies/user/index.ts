@@ -1,5 +1,8 @@
 import { getStrategy } from '../index';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export const UserFactory = req => {
-	return getStrategy(req, __dirname);
-};
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const UserFactory = req => getStrategy(req, __dirname);

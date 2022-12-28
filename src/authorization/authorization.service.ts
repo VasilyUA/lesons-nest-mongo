@@ -3,14 +3,13 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import { User } from '../db/index';
-import { LoginUserDto } from './dto/login-user.dto';
 import { comparePassword } from '../helpers/bcrypt-password';
 
 @Injectable()
 export class AuthorizationService {
 	constructor(private userService: UserService, private jwtService: JwtService) {}
 
-	async validateUser(userDto: LoginUserDto): Promise<any> {
+	async validateUser(userDto: CreateUserDto): Promise<any> {
 		const user = await this.userService.getUserByEmailWithPassword(userDto.email);
 		if (!user) throw new UnauthorizedException({ message: 'Некоректний email або пароль' });
 

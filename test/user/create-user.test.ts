@@ -65,6 +65,22 @@ describe('Create user as an admin', () => {
 			});
 	});
 
+	it("POST '/user' When user role was not found", async () => {
+		const loginResponse = await request.post('/login').send(mockAdminUser).set('Accept', 'application/json');
+		const token = _.get(loginResponse, 'body.access_token', '');
+		await UserModel.updateOne({ email: mockAdminUser['email'] }, { $set: { roles: [] } });
+
+		return request.post('/user').send(mockUser).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(403).expect({ statusCode: 403, message: 'Немає доступу' });
+	});
+
+	it("POST '/user' When user was removed", async () => {
+		const loginResponse = await request.post('/login').send(mockAdminUser).set('Accept', 'application/json');
+		const token = _.get(loginResponse, 'body.access_token', '');
+		await UserModel.deleteOne({ email: mockAdminUser['email'] });
+
+		return request.post('/user').send(mockUser).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(401).expect({ message: 'Ви не авторизовані' });
+	});
+
 	afterAll(async () => {
 		await app.close();
 	});
