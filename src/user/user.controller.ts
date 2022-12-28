@@ -19,6 +19,8 @@ import { ValidationPipe } from '../pipes/validation.pipe';
 import { Roles } from '../patterns/decorators/roles-auth.decorator';
 import { RolesGuard } from '../authorization/guards/roles.guard';
 
+import { USER_ROLES } from './../constants';
+
 @ApiTags('Користувачі')
 @Controller('user')
 export class UserController {
@@ -27,7 +29,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Створення користувача доступно тільки для Адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
-	@Roles('admin')
+	@Roles(USER_ROLES.ADMIN)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@UsePipes(ValidationPipe)
 	@Post()
@@ -38,7 +40,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Отримати всіх користувачів доступно тільки для адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: [User] })
-	@Roles('admin')
+	@Roles(USER_ROLES.ADMIN)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get()
 	getListUsers(@Request() req: RequestType) {
@@ -48,7 +50,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Отримати користувача за ідентифікатором доступно тільки для адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
-	@Roles('admin')
+	@Roles(USER_ROLES.ADMIN, USER_ROLES.USER)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get(':id')
 	getUserByID(@Param('id') id: string) {
@@ -58,7 +60,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Оновити користувача за ідентифікатором доступно тільки для адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
-	@Roles('admin')
+	@Roles(USER_ROLES.ADMIN)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Put(':id')
 	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -68,7 +70,7 @@ export class UserController {
 	@ApiOperation({ summary: 'Видалити користувача за ідентифікатором доступно тільки для адміна' })
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
-	@Roles('admin')
+	@Roles(USER_ROLES.ADMIN)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Delete(':id')
 	remove(@Param('id') id: string) {
