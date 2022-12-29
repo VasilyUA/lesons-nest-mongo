@@ -2,7 +2,6 @@ import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable } 
 
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../../patterns/decorators/roles-auth.decorator';
-import { accessStrategy } from './../../patterns/strategies/index';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -13,7 +12,6 @@ export class RolesGuard implements CanActivate {
 
 		const req = context.switchToHttp().getRequest();
 		const roles = req.user.roles;
-		req.strategy = accessStrategy(roles);
 
 		const checkAccessRole = requiredRoles && roles.some(role => requiredRoles.includes(role));
 		if (!checkAccessRole) throw new HttpException('Немає доступу', HttpStatus.FORBIDDEN);

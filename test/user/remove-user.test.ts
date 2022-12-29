@@ -13,7 +13,7 @@ import { USER_ROLES } from '../../src/constants';
 
 jest.setTimeout(45000);
 
-describe('Create user as an admin', () => {
+describe('Remove users', () => {
 	let app: INestApplication;
 	let request: supertest.SuperTest<supertest.Test>;
 

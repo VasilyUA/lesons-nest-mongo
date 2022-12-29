@@ -1,6 +1,6 @@
+import { FactoryService } from './strategy/factory.service';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Request } from 'express';
 import { Model } from 'mongoose';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -8,11 +8,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User, UserDocument } from '../db/index';
 
-import { UserFactory } from '../patterns/strategies/user';
-
 @Injectable()
 export class UserService {
-	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, readonly factoryService: FactoryService) {}
 
 	createUser(createUserDto: CreateUserDto): Promise<User> {
 		return this.userModel.create(createUserDto);
@@ -26,11 +24,8 @@ export class UserService {
 		return this.userModel.findById(id);
 	}
 
-	async getUserUseId(req: Request) {
-		const models = {
-			userModel: this.userModel,
-		};
-		const strategy = await UserFactory(req, models);
+	async getUserUseId() {
+		const strategy = this.factoryService.getStrategy();
 		return strategy.getUser();
 	}
 

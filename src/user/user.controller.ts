@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, UsePipes, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Request as RequestType } from 'express';
 
 // import db modules and schemas
 import { User } from '../db/index';
@@ -53,8 +52,8 @@ export class UserController {
 	@Roles(USER_ROLES.ADMIN, USER_ROLES.USER)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Get(':id')
-	getUserByID(@Request() req: RequestType) {
-		return this.userService.getUserUseId(req);
+	getUserByID() {
+		return this.userService.getUserUseId();
 	}
 
 	@ApiOperation({ summary: 'Оновити користувача за ідентифікатором доступно тільки для адміна' })
