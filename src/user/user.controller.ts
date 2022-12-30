@@ -1,3 +1,4 @@
+import { Permissions } from './../patterns/decorators/permissions-auth.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -15,9 +16,11 @@ import { JwtAuthGuard } from '../authorization/guards/jwt-auth.guard';
 // pipes
 import { ValidationPipe } from '../pipes/validation.pipe';
 
+// decorators
 import { Roles } from '../patterns/decorators/roles-auth.decorator';
-import { RolesGuard } from '../authorization/guards/roles.guard';
+import { AccessGuard } from '../authorization/guards/roles.guard';
 
+// constants
 import { USER_ROLES } from './../constants';
 
 @ApiTags('Користувачі')
@@ -29,7 +32,8 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
-	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Permissions('user:create')
+	@UseGuards(JwtAuthGuard, AccessGuard)
 	@UsePipes(ValidationPipe)
 	@Post()
 	create(@Body() createUserDto: CreateUserDto) {
@@ -40,7 +44,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: [User] })
 	@Roles(USER_ROLES.ADMIN)
-	@UseGuards(JwtAuthGuard, RolesGuard)
+	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get()
 	getListUsers() {
 		return this.userService.getListUsers();
@@ -50,7 +54,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN, USER_ROLES.USER)
-	@UseGuards(JwtAuthGuard, RolesGuard)
+	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get(':id')
 	getUserByID() {
 		return this.userService.getUserUseId();
@@ -60,9 +64,9 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
-	@UseGuards(JwtAuthGuard, RolesGuard)
+	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Put(':id')
-	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+	update(@Param('id') id: string, @Body(ValidationPipe) updateUserDto: UpdateUserDto) {
 		return this.userService.updateUserByID(id, updateUserDto);
 	}
 
@@ -70,7 +74,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
-	@UseGuards(JwtAuthGuard, RolesGuard)
+	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Delete(':id')
 	remove(@Param('id') id: string) {
 		return this.userService.removeUserByID(id);

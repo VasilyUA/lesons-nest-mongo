@@ -7,8 +7,10 @@ import Schemas from '../db/index';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 
-// authorization
+// app modules
 import { AuthorizationModule } from '../authorization/authorization.module';
+
+// strategy factory service for role
 import { strategy } from './strategy/factory.service';
 
 @Module({

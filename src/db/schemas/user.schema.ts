@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { hashPassword } from '../../helpers/bcrypt-password';
 import { USER_ROLES } from '../../constants';
 
-// import { Permission } from './permission.schema';
+import { Permission } from './permissions.schema';
 
 export type UserDocument = mongoose.HydratedDocument<User>;
 
@@ -25,7 +25,7 @@ export class User {
 
 	@ApiProperty({ type: [String], example: 'true', description: 'Роль користувача' })
 	@Prop({ type: [String], default: [USER_ROLES.USER], ref: 'Permission' })
-	roles: string[];
+	roles: [Permission];
 
 	@ApiProperty({ type: Boolean, example: 'true', description: 'Заблокований или нет' })
 	@Prop({ type: Boolean, default: false })
