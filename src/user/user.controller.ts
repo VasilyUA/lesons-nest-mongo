@@ -18,10 +18,11 @@ import { ValidationPipe } from '../pipes/validation.pipe';
 
 // decorators
 import { Roles } from '../patterns/decorators/roles-auth.decorator';
+
 import { AccessGuard } from '../authorization/guards/roles.guard';
 
 // constants
-import { USER_ROLES } from './../constants';
+import { USER_ROLES, PERMISSIONS } from './../constants';
 
 @ApiTags('Користувачі')
 @Controller('user')
@@ -32,7 +33,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('user:create')
+	@Permissions(PERMISSIONS.USER_CREATE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@UsePipes(ValidationPipe)
 	@Post()
@@ -44,6 +45,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: [User] })
 	@Roles(USER_ROLES.ADMIN)
+	@Permissions(PERMISSIONS.USER_READ)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get()
 	getListUsers() {
@@ -54,6 +56,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN, USER_ROLES.USER)
+	@Permissions(PERMISSIONS.USER_READ)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get(':id')
 	getUserByID() {
@@ -64,6 +67,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
+	@Permissions(PERMISSIONS.USER_UPDATE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Put(':id')
 	update(@Param('id') id: string, @Body(ValidationPipe) updateUserDto: UpdateUserDto) {
@@ -74,6 +78,7 @@ export class UserController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: User })
 	@Roles(USER_ROLES.ADMIN)
+	@Permissions(PERMISSIONS.USER_DELETE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Delete(':id')
 	remove(@Param('id') id: string) {

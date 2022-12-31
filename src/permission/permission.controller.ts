@@ -16,7 +16,7 @@ import { Roles } from './../patterns/decorators/roles-auth.decorator';
 import { Permissions } from './../patterns/decorators/permissions-auth.decorator';
 
 // constants
-import { USER_ROLES } from './../constants';
+import { USER_ROLES, PERMISSIONS } from './../constants';
 
 // authorization guards
 import { AccessGuard } from './../authorization/guards/roles.guard';
@@ -34,7 +34,7 @@ export class PermissionController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 201, type: Permission })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('permission:create')
+	@Permissions(PERMISSIONS.PERMISSION_CREATE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@UsePipes(ValidationPipe)
 	@Post()
@@ -46,7 +46,7 @@ export class PermissionController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: [Permission] })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('permission:read')
+	@Permissions(PERMISSIONS.PERMISSION_READ)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get()
 	findAll() {
@@ -57,7 +57,7 @@ export class PermissionController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: Permission })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('permission:read')
+	@Permissions(PERMISSIONS.PERMISSION_READ)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Get(':role')
 	findOne(@Param('role') role: string) {
@@ -68,7 +68,7 @@ export class PermissionController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: Permission })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('permission:update')
+	@Permissions(PERMISSIONS.PERMISSION_UPDATE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Put(':role')
 	update(@Param('role') role: string, @Body(ValidationPipe) updatePermissionDto: UpdatePermissionDto) {
@@ -79,7 +79,7 @@ export class PermissionController {
 	@ApiHeader({ name: 'Authorization', description: 'Bearer token' })
 	@ApiResponse({ status: 200, type: Permission })
 	@Roles(USER_ROLES.ADMIN)
-	@Permissions('permission:delete')
+	@Permissions(PERMISSIONS.PERMISSION_DELETE)
 	@UseGuards(JwtAuthGuard, AccessGuard)
 	@Delete(':role')
 	remove(@Param('role') role: string) {

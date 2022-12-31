@@ -1,8 +1,8 @@
 {
-	"name": "backend-shop",
+	"name": "backend-nestjs",
 	"version": "0.0.1",
-	"description": "",
-	"author": "",
+	"description": "Backend side for nestjs",
+	"author": "VasilyUA",
 	"private": true,
 	"license": "UNLICENSED",
 	"scripts": {
@@ -20,6 +20,18 @@
 		"test:d": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"jobs": "cross-env NODE_ENV=prod webpack --config webpack-jobs.config.js",
 		"jobs:w": "cross-env NODE_ENV=development webpack --config webpack-jobs.config.js --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/VasilyUA/lesons-nest-mongo"
+	},
+	"bugs": {
+		"url": "https://github.com/VasilyUA/lesons-nest-mongo/issues"
+	},
+	"homepage": "https://github.com/VasilyUA/lesons-nest-mongo#readme",
+	"engines": {
+		"node": "18.11.0",
+		"npm": "8.19.2"
 	},
 	"dependencies": {
 		"@nestjs/common": "^9.0.0",
